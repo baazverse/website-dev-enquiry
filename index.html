@@ -1,0 +1,2450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ARBAZ HASAN — AI Web Designer & Digital Architect</title>
+  
+  <!-- Modern Editorial & Monospace Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       DESIGN SYSTEM & VARIABLES
+       ========================================================================== */
+    :root {
+      --bg-primary: #F9F9F7;
+      --bg-surface: #FFFFFF;
+      --bg-subtle: #F2F2ED;
+      --bg-card-hover: #FAFAF8;
+      
+      --text-main: #0E0F12;
+      --text-body: #474A54;
+      --text-muted: #858894;
+      
+      --border-light: #E5E5DE;
+      --border-dark: #CDCDC3;
+      --border-focus: #0E0F12;
+      
+      --accent-blue: #0047FF;
+      --accent-blue-hover: #0036C8;
+      --accent-blue-subtle: rgba(0, 71, 255, 0.06);
+      --accent-blue-glow: rgba(0, 71, 255, 0.14);
+      
+      --font-headline: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-display: 'Space Grotesk', sans-serif;
+
+      --container-max: 1360px;
+      --header-height: 72px;
+      --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.5;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-size: 52px 52px;
+      background-image: 
+        linear-gradient(to right, rgba(0, 0, 0, 0.022) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.022) 1px, transparent 1px);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, input, textarea, select {
+      font: inherit;
+      border: none;
+      background: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin-inline: auto;
+      padding-inline: 2rem;
+    }
+
+    /* --- NAVIGATION --- */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      height: var(--header-height);
+      background: rgba(249, 249, 247, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-light);
+      z-index: 500;
+      display: flex;
+      align-items: center;
+    }
+
+    .site-nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+    }
+
+    .brand-name {
+      font-family: var(--font-headline);
+      font-weight: 800;
+      font-size: 1.05rem;
+      letter-spacing: -0.025em;
+    }
+
+    .brand-badge {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      padding: 0.25rem 0.6rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      letter-spacing: 0.06em;
+      color: var(--text-body);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-item a {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      position: relative;
+      padding-bottom: 4px;
+      transition: var(--transition-smooth);
+    }
+
+    .nav-item a:hover,
+    .nav-item.active a {
+      color: var(--text-main);
+    }
+
+    .nav-item.active a::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1.5px;
+      background-color: var(--text-main);
+    }
+
+    .nav-cta-btn {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      font-weight: 600;
+      padding: 0.65rem 1.4rem;
+      background: var(--text-main);
+      color: #FFFFFF;
+      border: 1px solid var(--text-main);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: var(--transition-smooth);
+      cursor: pointer;
+    }
+
+    .nav-cta-btn:hover {
+      background: var(--accent-blue);
+      border-color: var(--accent-blue);
+      transform: translateY(-1px);
+    }
+
+    /* Minimal Hamburger Toggle */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 44px;
+      height: 44px;
+      cursor: pointer;
+      z-index: 600;
+      background: transparent;
+      border: 1px solid var(--border-light);
+      border-radius: 2px;
+      gap: 5px;
+      padding: 0;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background-color: var(--text-main);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Mobile Drawer */
+    .mobile-nav-drawer {
+      position: fixed;
+      top: var(--header-height);
+      left: 0;
+      width: 100%;
+      height: calc(100vh - var(--header-height));
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-light);
+      display: flex;
+      flex-direction: column;
+      padding: 2.5rem 2rem;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 450;
+      overflow-y: auto;
+    }
+
+    .mobile-nav-drawer.open {
+      transform: translateX(0);
+    }
+
+    .mobile-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .mobile-links li a {
+      font-family: var(--font-headline);
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 0.85rem;
+    }
+
+    .mobile-links li a span {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent-blue);
+    }
+
+    /* --- HERO SECTION --- */
+    .hero-section {
+      min-height: calc(100vh - var(--header-height));
+      display: flex;
+      align-items: center;
+      padding-block: 4rem 4.5rem;
+      border-bottom: 1px solid var(--border-light);
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 4.5rem;
+      align-items: center;
+    }
+
+    .hero-meta-bar {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      margin-bottom: 1.85rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-headline {
+      font-family: var(--font-headline);
+      font-size: clamp(2.4rem, 4.4vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.06;
+      letter-spacing: -0.035em;
+      color: var(--text-main);
+      margin-bottom: 1.75rem;
+    }
+
+    .headline-accent {
+      color: var(--accent-blue);
+      display: block;
+    }
+
+    .hero-description {
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: var(--text-body);
+      max-width: 530px;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-cta-cluster {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 3.75rem;
+    }
+
+    .btn-primary-editorial {
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--text-main);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      border-bottom: 1.5px solid var(--text-main);
+      padding-bottom: 0.35rem;
+      transition: var(--transition-smooth);
+    }
+
+    .btn-primary-editorial:hover {
+      color: var(--accent-blue);
+      border-bottom-color: var(--accent-blue);
+      transform: translateX(4px);
+    }
+
+    .btn-secondary-editorial {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      transition: var(--transition-smooth);
+    }
+
+    .btn-secondary-editorial:hover {
+      color: var(--text-main);
+    }
+
+    .services-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--border-light);
+      border-left: 1px solid var(--border-light);
+    }
+
+    .service-card {
+      padding: 1.35rem 1.25rem;
+      border-right: 1px solid var(--border-light);
+      border-bottom: 1px solid var(--border-light);
+      background: rgba(255, 255, 255, 0.45);
+      transition: var(--transition-smooth);
+    }
+
+    .service-card:hover {
+      background: var(--bg-surface);
+      border-color: var(--border-dark);
+    }
+
+    .service-num {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent-blue);
+      display: block;
+      margin-bottom: 0.35rem;
+    }
+
+    .service-title {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: 0.02em;
+      color: var(--text-main);
+    }
+
+    .hero-visual-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .portrait-frame {
+      position: relative;
+      width: 100%;
+      max-width: 440px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      padding: 1rem;
+    }
+
+    .corner-cross {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1;
+      user-select: none;
+    }
+
+    .corner-tl { top: -7px; left: -7px; }
+    .corner-tr { top: -7px; right: -7px; }
+    .corner-bl { bottom: -7px; left: -7px; }
+    .corner-br { bottom: -7px; right: -7px; }
+
+    .portrait-inner {
+      position: relative;
+      background: #E8E8E2;
+      overflow: hidden;
+      aspect-ratio: 4 / 5;
+    }
+
+    .portrait-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: contrast(1.03);
+    }
+
+    .portrait-caption {
+      margin-top: 0.85rem;
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* --- SECTION HEADERS --- */
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      color: var(--accent-blue);
+      margin-bottom: 0.85rem;
+    }
+
+    .section-title {
+      font-family: var(--font-headline);
+      font-size: clamp(2rem, 3.4vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+
+    .editorial-trust-line {
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: var(--text-body);
+      max-width: 720px;
+      margin-bottom: 2.75rem;
+    }
+
+    /* --- PROJECTS SECTION --- */
+    .projects-section {
+      padding-block: 7rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .trust-metrics-ribbon {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .metric-pill {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      padding: 0.45rem 0.85rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      color: var(--text-main);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .metric-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-blue);
+    }
+
+    .filter-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 3rem;
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 1.25rem;
+    }
+
+    .filter-btn {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      padding: 0.45rem 1rem;
+      border: 1px solid var(--border-light);
+      background: var(--bg-primary);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .filter-btn:hover {
+      color: var(--text-main);
+      border-color: var(--border-dark);
+    }
+
+    .filter-btn.active {
+      background: var(--text-main);
+      color: #FFFFFF;
+      border-color: var(--text-main);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.5rem;
+    }
+
+    .project-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--border-dark);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+    }
+
+    .browser-chrome {
+      background: #F4F4EE;
+      border-bottom: 1px solid var(--border-light);
+      padding: 0.65rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .chrome-dots {
+      display: flex;
+      gap: 5px;
+    }
+
+    .chrome-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+    }
+
+    .dot-red { background: #FF5F56; }
+    .dot-yellow { background: #FFBD2E; }
+    .dot-green { background: #27C93F; }
+
+    .chrome-url {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      padding: 0.15rem 0.75rem;
+      border-radius: 20px;
+    }
+
+    .chrome-tag {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--accent-blue);
+      font-weight: 600;
+    }
+
+    /* Project Image Container */
+    .project-preview {
+      position: relative;
+      aspect-ratio: 16 / 10;
+      background: #111;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .project-thumbnail {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .project-card:hover .project-thumbnail {
+      transform: scale(1.04);
+    }
+
+    .project-info {
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .project-meta-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.65rem;
+    }
+
+    .project-name {
+      font-family: var(--font-headline);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .project-category {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.05em;
+      color: var(--accent-blue);
+    }
+
+    .project-summary {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: var(--text-body);
+      margin-bottom: 1.5rem;
+      flex: 1;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .tag-badge {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      padding: 0.2rem 0.55rem;
+      background: var(--bg-subtle);
+      color: var(--text-body);
+      border: 1px solid var(--border-light);
+    }
+
+    .project-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border-light);
+      padding-top: 1.25rem;
+    }
+
+    .btn-inspect {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--text-muted);
+    }
+
+    .btn-launch-live {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--accent-blue);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: var(--transition-smooth);
+    }
+
+    .btn-launch-live:hover {
+      color: var(--accent-blue-hover);
+      transform: translateX(3px);
+    }
+
+    /* --- ABOUT SECTION --- */
+    .about-section {
+      padding-block: 7rem;
+      border-bottom: 1px solid var(--border-light);
+      position: relative;
+    }
+
+    .about-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      perspective: 1200px;
+    }
+
+    .about-card {
+      position: relative;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      padding: 2.75rem 2.5rem;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .about-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 50px -12px rgba(0, 0, 0, 0.08), 0 0 0 1px var(--accent-blue);
+      background: var(--bg-card-hover);
+    }
+
+    .about-card-watermark {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.75rem;
+      font-family: var(--font-mono);
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: rgba(0, 0, 0, 0.035);
+      line-height: 1;
+      pointer-events: none;
+      transition: var(--transition-smooth);
+    }
+
+    .about-card:hover .about-card-watermark {
+      color: var(--accent-blue-glow);
+      transform: scale(1.05);
+    }
+
+    .about-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .about-card-badge {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--accent-blue);
+      padding: 0.25rem 0.65rem;
+      background: var(--accent-blue-subtle);
+      border: 1px solid rgba(0, 71, 255, 0.15);
+      letter-spacing: 0.05em;
+    }
+
+    .about-card-title {
+      font-family: var(--font-headline);
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      margin-bottom: 1rem;
+    }
+
+    .about-card-text {
+      font-size: 1rem;
+      line-height: 1.65;
+      color: var(--text-body);
+      margin-bottom: 1.75rem;
+      flex: 1;
+    }
+
+    .about-card-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      border-top: 1px solid var(--border-light);
+      padding-top: 1.5rem;
+    }
+
+    .about-card-list li {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .about-card-list li span.bullet {
+      color: var(--accent-blue);
+      font-weight: 700;
+    }
+
+    /* --- REVIEWS SECTION --- */
+    .reviews-section {
+      padding-block: 7.5rem 8rem;
+      border-bottom: 1px solid var(--border-light);
+      background: var(--bg-primary);
+    }
+
+    .reviews-header-wrap {
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 3.5rem;
+      align-items: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .aggregate-score-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      padding: 2rem 2.25rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .aggregate-top {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .aggregate-number {
+      font-family: var(--font-headline);
+      font-size: 2.8rem;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--text-main);
+      letter-spacing: -0.03em;
+    }
+
+    .aggregate-stars {
+      color: #E5A100;
+      font-size: 1.25rem;
+      letter-spacing: 2px;
+    }
+
+    .aggregate-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--text-main);
+      margin-bottom: 0.35rem;
+    }
+
+    .aggregate-meta {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn-open-feedback {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      padding: 0.65rem 1rem;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-light);
+      color: var(--text-main);
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      text-align: center;
+    }
+
+    .btn-open-feedback:hover {
+      background: var(--text-main);
+      color: #FFFFFF;
+      border-color: var(--text-main);
+    }
+
+    .review-stats-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--border-light);
+      background: var(--bg-surface);
+      margin-bottom: 3.5rem;
+    }
+
+    .stat-cell {
+      padding: 1.5rem 1.75rem;
+      border-right: 1px solid var(--border-light);
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .stat-cell:last-child {
+      border-right: none;
+    }
+
+    .stat-value {
+      font-family: var(--font-headline);
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--accent-blue);
+      letter-spacing: -0.02em;
+    }
+
+    .stat-desc {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      color: var(--text-body);
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.25rem;
+    }
+
+    .review-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      padding: 2.5rem 2.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: var(--transition-smooth);
+      animation: fadeInReview 0.4s ease forwards;
+    }
+
+    @keyframes fadeInReview {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .review-card:hover {
+      border-color: var(--border-dark);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.04);
+    }
+
+    .review-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .review-stars {
+      color: #E5A100;
+      font-size: 1rem;
+      letter-spacing: 2px;
+    }
+
+    .verified-badge {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: #108A44;
+      background: rgba(16, 138, 68, 0.08);
+      padding: 0.2rem 0.6rem;
+      border: 1px solid rgba(16, 138, 68, 0.2);
+    }
+
+    .review-outcome-pill {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--accent-blue);
+      margin-bottom: 1.25rem;
+    }
+
+    .review-quote {
+      font-size: 1rem;
+      line-height: 1.65;
+      color: var(--text-main);
+      margin-bottom: 2rem;
+      flex: 1;
+    }
+
+    .review-author-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border-top: 1px solid var(--border-light);
+      padding-top: 1.25rem;
+    }
+
+    .author-avatar-initials {
+      width: 40px;
+      height: 40px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+    }
+
+    .author-name {
+      font-family: var(--font-headline);
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .author-title {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* --- CONTACT SECTION --- */
+    .contact-section {
+      padding-block: 7.5rem 8rem;
+      background: #F4F4EE;
+      position: relative;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .contact-direct-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      padding: 3rem 2.5rem;
+      position: relative;
+    }
+
+    .deal-standards-list {
+      margin-block: 2.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .deal-standard-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .deal-num {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      background: var(--accent-blue-subtle);
+      padding: 0.2rem 0.5rem;
+      border-radius: 2px;
+    }
+
+    .deal-content h4 {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.25rem;
+    }
+
+    .deal-content p {
+      font-size: 0.85rem;
+      color: var(--text-body);
+      line-height: 1.45;
+    }
+
+    .direct-links-wrap {
+      border-top: 1px solid var(--border-light);
+      padding-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .direct-action-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 1.25rem;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-light);
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--text-main);
+      font-weight: 600;
+      transition: var(--transition-smooth);
+    }
+
+    .direct-action-btn:hover {
+      background: var(--text-main);
+      color: #FFFFFF;
+      border-color: var(--text-main);
+      transform: translateX(4px);
+    }
+
+    .contact-form-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      padding: 3rem 2.75rem;
+      position: relative;
+    }
+
+    .form-group-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-field {
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .field-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    .field-input, .field-select, .field-textarea {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-light);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      transition: var(--transition-smooth);
+      outline: none;
+    }
+
+    .field-input:focus, .field-select:focus, .field-textarea:focus {
+      border-color: var(--accent-blue);
+      background: #FFFFFF;
+      box-shadow: 0 0 0 3px var(--accent-blue-subtle);
+    }
+
+    .field-textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .form-submit-btn {
+      width: 100%;
+      padding: 1.15rem;
+      background: var(--accent-blue);
+      color: #FFFFFF;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .form-submit-btn:hover {
+      background: var(--accent-blue-hover);
+      box-shadow: 0 10px 24px rgba(0, 71, 255, 0.28);
+    }
+
+    /* --- MODALS --- */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(14, 15, 18, 0.65);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition-smooth);
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      width: 100%;
+      max-width: 600px;
+      padding: 2.5rem;
+      position: relative;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.12);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .modal-close-btn:hover {
+      color: var(--text-main);
+    }
+
+    .modal-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent-blue);
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+    }
+
+    .modal-title {
+      font-family: var(--font-headline);
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .modal-body {
+      font-size: 0.95rem;
+      color: var(--text-body);
+      line-height: 1.6;
+      margin-bottom: 1.75rem;
+    }
+
+    /* --- FOOTER --- */
+    .site-footer {
+      padding-block: 4rem;
+      background: var(--bg-primary);
+      border-top: 1px solid var(--border-light);
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .footer-left {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .footer-right {
+      display: flex;
+      gap: 2rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .footer-right a:hover {
+      color: var(--accent-blue);
+    }
+
+    /* ==========================================================================
+       RESPONSIVE BREAKPOINTS (DESKTOP -> TABLET -> MOBILE)
+       ========================================================================== */
+    @media (max-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 3.5rem;
+      }
+      .hero-visual-wrap {
+        order: -1;
+      }
+      .portrait-frame {
+        max-width: 380px;
+      }
+      .projects-grid,
+      .about-cards-grid,
+      .reviews-grid,
+      .contact-layout {
+        grid-template-columns: 1fr;
+      }
+      .reviews-header-wrap {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .review-stats-bar {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .stat-cell:nth-child(2) {
+        border-right: none;
+      }
+      .stat-cell:nth-child(1), .stat-cell:nth-child(2) {
+        border-bottom: 1px solid var(--border-light);
+      }
+    }
+
+    @media (max-width: 768px) {
+      :root {
+        --header-height: 64px;
+      }
+      .container {
+        padding-inline: 1.25rem;
+      }
+      .nav-links, .site-nav .nav-cta-btn {
+        display: none;
+      }
+      .menu-toggle {
+        display: flex;
+      }
+      .hero-section {
+        padding-block: 2.5rem 3.5rem;
+      }
+      .hero-headline {
+        font-size: 2.2rem;
+      }
+      .hero-description {
+        font-size: 1rem;
+      }
+      .services-row {
+        grid-template-columns: 1fr;
+      }
+      .hero-cta-cluster {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.25rem;
+        margin-bottom: 2.5rem;
+      }
+      .projects-section,
+      .about-section,
+      .reviews-section,
+      .contact-section {
+        padding-block: 4.5rem;
+      }
+      .about-card {
+        padding: 2rem 1.5rem;
+      }
+      .review-card {
+        padding: 2rem 1.5rem;
+      }
+      .review-stats-bar {
+        grid-template-columns: 1fr;
+      }
+      .stat-cell {
+        border-right: none;
+        border-bottom: 1px solid var(--border-light);
+        padding: 1.25rem;
+      }
+      .stat-cell:last-child {
+        border-bottom: none;
+      }
+      .form-group-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .contact-form-card,
+      .contact-direct-card {
+        padding: 2rem 1.25rem;
+      }
+      .modal-content {
+        padding: 2rem 1.25rem;
+      }
+      .footer-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       TOP NAVIGATION & MINIMAL MOBILE DRAWER
+       ========================================================================== -->
+  <nav class="site-nav">
+    <div class="container">
+      <div class="nav-brand">
+        <a href="#home" class="brand-name">ARBAZ HASAN</a>
+        <span class="brand-badge">AI WEB DESIGNER</span>
+      </div>
+
+      <!-- Desktop Links -->
+      <ul class="nav-links">
+        <li class="nav-item active"><a href="#home">HOME</a></li>
+        <li class="nav-item"><a href="#projects">PROJECTS</a></li>
+        <li class="nav-item"><a href="#about">ABOUT</a></li>
+        <li class="nav-item"><a href="#reviews">REVIEWS</a></li>
+      </ul>
+
+      <a href="#lets-talk" class="nav-cta-btn">LET'S TALK →</a>
+
+      <!-- Minimalist Mobile Hamburger Button -->
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" onclick="toggleMobileNav()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-nav-drawer" id="mobileDrawer">
+    <ul class="mobile-links">
+      <li><a href="#home" onclick="closeMobileNav()">HOME <span>// 01</span></a></li>
+      <li><a href="#projects" onclick="closeMobileNav()">PROJECTS <span>// 02</span></a></li>
+      <li><a href="#about" onclick="closeMobileNav()">ABOUT <span>// 03</span></a></li>
+      <li><a href="#reviews" onclick="closeMobileNav()">REVIEWS <span>// 04</span></a></li>
+      <li><a href="#lets-talk" onclick="closeMobileNav()">START COMMISSION <span>// 05</span></a></li>
+    </ul>
+
+    <div style="margin-top: auto; padding-top: 2rem; border-top: 1px solid var(--border-light);">
+      <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); margin-bottom: 0.5rem;">DIRECT COMMISSIONS:</div>
+      <a href="mailto:baazverse@gmail.com" style="font-family: var(--font-mono); font-size: 0.85rem; font-weight:600; color:var(--accent-blue);">baazverse@gmail.com</a>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       01 — HERO SECTION
+       ========================================================================== -->
+  <section class="hero-section" id="home">
+    <div class="container">
+      <div class="hero-grid">
+        
+        <div class="hero-content">
+          <div class="hero-meta-bar">
+            <span>[ SELECTED WORKS • 2026 ]</span>
+            <span>+</span>
+            <span>INDEPENDENT STUDIO • WORLDWIDE</span>
+          </div>
+
+          <h1 class="hero-headline">
+            I HELP BUSINESSES
+            <span class="headline-accent">GROW ONLINE.</span>
+          </h1>
+
+          <p class="hero-description">
+            I design modern websites that help businesses look professional, build trust, and turn visitors into customers.
+          </p>
+
+          <div class="hero-cta-cluster">
+            <a href="#lets-talk" class="btn-primary-editorial">
+              LET'S BUILD SOMETHING <span style="font-size:1.1rem;">→</span>
+            </a>
+            <a href="#projects" class="btn-secondary-editorial">
+              VIEW SELECTED WORKS ↓
+            </a>
+          </div>
+
+          <!-- 3 Reusable Minimal Service Blocks -->
+          <div class="services-row">
+            <div class="service-card">
+              <span class="service-num">01 //</span>
+              <div class="service-title">LANDING<br>PAGES</div>
+            </div>
+            <div class="service-card">
+              <span class="service-num">02 //</span>
+              <div class="service-title">BUSINESS<br>WEBSITES</div>
+            </div>
+            <div class="service-card">
+              <span class="service-num">03 //</span>
+              <div class="service-title">PERSONAL<br>WEBSITES</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Editorial Portrait Frame -->
+        <div class="hero-visual-wrap">
+          <div class="portrait-frame">
+            <div class="corner-cross corner-tl">+</div>
+            <div class="corner-tr corner-cross">+</div>
+            <div class="corner-bl corner-cross">+</div>
+            <div class="corner-br corner-cross">+</div>
+
+            <div class="portrait-inner">
+              <img 
+                src="Codex Image Aug 30, 2026, 03_18_47 PM.png" 
+                alt="Arbaz Hasan — Independent Web Designer"
+                class="portrait-img"
+                onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80';"
+              />
+            </div>
+
+            <div class="portrait-caption">
+              <span>FIG. 01 — ARBAZ HASAN</span>
+              <span>DEV / DESIGN</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       02 — SELECTED CLIENT PROJECTS SECTION (#projects)
+       ========================================================================== -->
+  <section class="projects-section" id="projects">
+    <div class="container">
+      
+      <div class="section-label">// 02 — ARCHIVE OF SELECTED CLIENT COMMISSIONS</div>
+      <h2 class="section-title">CRAFTED FOR CLIENT IMPACT.</h2>
+      <p class="editorial-trust-line">
+        Each project represents a bespoke architectural build engineered for speed, conversion, and elevated brand equity. Zero generic templates.
+      </p>
+
+      <!-- Trust Metrics Ribbon -->
+      <div class="trust-metrics-ribbon">
+        <span class="metric-pill"><span class="metric-dot"></span> 100% Bespoke Code</span>
+        <span class="metric-pill"><span class="metric-dot"></span> 0.00 Generic Templates</span>
+        <span class="metric-pill"><span class="metric-dot"></span> High ROI Conversion Architecture</span>
+        <span class="metric-pill"><span class="metric-dot"></span> Live Global Netlify Edge</span>
+      </div>
+
+      <!-- Filter Controls -->
+      <div class="filter-tabs">
+        <button type="button" class="filter-btn active" onclick="filterProjects(event, 'all')">ALL CLIENT PROJECTS (6)</button>
+        <button type="button" class="filter-btn" onclick="filterProjects(event, 'restaurant')">RESTAURANTS & DINING (2)</button>
+        <button type="button" class="filter-btn" onclick="filterProjects(event, 'clinical')">HEALTHCARE & CLINICAL (2)</button>
+        <button type="button" class="filter-btn" onclick="filterProjects(event, 'editorial')">EDITORIAL & BRAND (2)</button>
+      </div>
+
+      <!-- Projects Grid with Real Images Connected -->
+      <div class="projects-grid">
+        
+        <!-- Project 01: Namastay Bareilly -->
+        <div class="project-card" data-category="restaurant">
+          <div class="browser-chrome">
+            <div class="chrome-dots">
+              <span class="chrome-dot dot-red"></span>
+              <span class="chrome-dot dot-yellow"></span>
+              <span class="chrome-dot dot-green"></span>
+            </div>
+            <div class="chrome-url">namastay-bareilly.netlify.app</div>
+            <div class="chrome-tag">RESTAURANT</div>
+          </div>
+          <div class="project-preview">
+            <img 
+              src="project-namastay.jpg" 
+              alt="Namastay Bareilly Website Interface" 
+              class="project-thumbnail"
+              loading="lazy"
+              onerror="this.style.display='none';"
+            />
+          </div>
+          <div class="project-info">
+            <div class="project-meta-top">
+              <h3 class="project-name">Namastay Bareilly</h3>
+              <span class="project-category">RESTAURANTS & DINING</span>
+            </div>
+            <p class="project-summary">
+              Bespoke digital dining experience engineered to elevate footfall and direct reservations.
+            </p>
+            <div class="project-tags">
+              <span class="tag-badge">Table Reservation Flow</span>
+              <span class="tag-badge">Menu Architecture</span>
+            </div>
+            <div class="project-actions">
+              <span class="btn-inspect">// LIVE DEPLOYMENT</span>
+              <a href="https://namastay-bareilly.netlify.app/" target="_blank" rel="noopener noreferrer" class="btn-launch-live">
+                LAUNCH LIVE SITE ↗
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 02: GoodFood Restaurant -->
+        <div class="project-card" data-category="restaurant">
+          <div class="browser-chrome">
+            <div class="chrome-dots">
+              <span class="chrome-dot dot-red"></span>
+              <span class="chrome-dot dot-yellow"></span>
+              <span class="chrome-dot dot-green"></span>
+            </div>
+            <div class="chrome-url">goodfood-restaurent.netlify.app</div>
+            <div class="chrome-tag">RESTAURANT</div>
+          </div>
+          <div class="project-preview">
+            <img 
+              src="project-goodfood.jpg" 
+              alt="GoodFood Restaurant Website Preview" 
+              class="project-thumbnail"
+              loading="lazy"
+              onerror="this.style.display='none';"
+            />
+          </div>
+          <div class="project-info">
+            <div class="project-meta-top">
+              <h3 class="project-name">GoodFood Restaurant</h3>
+              <span class="project-category">RESTAURANTS & DINING</span>
+            </div>
+            <p class="project-summary">
+              Modern culinary showcase with interactive menus crafted for effortless food ordering.
+            </p>
+            <div class="project-tags">
+              <span class="tag-badge">Visual Menu System</span>
+              <span class="tag-badge">Order Routing</span>
+            </div>
+            <div class="project-actions">
+              <span class="btn-inspect">// LIVE DEPLOYMENT</span>
+              <a href="https://goodfood-restaurent.netlify.app/" target="_blank" rel="noopener noreferrer" class="btn-launch-live">
+                LAUNCH LIVE SITE ↗
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 03: Dr. Manish Clinic -->
+        <div class="project-card" data-category="clinical">
+          <div class="browser-chrome">
+            <div class="chrome-dots">
+              <span class="chrome-dot dot-red"></span>
+              <span class="chrome-dot dot-yellow"></span>
+              <span class="chrome-dot dot-green"></span>
+            </div>
+            <div class="chrome-url">dr-manish-clinic.netlify.app</div>
+            <div class="chrome-tag">HEALTHCARE</div>
+          </div>
+          <div class="project-preview">
+            <img 
+              src="project-manish.jpg" 
+              alt="Dr. Manish Clinic Web Showcase" 
+              class="project-thumbnail"
+              loading="lazy"
+              onerror="this.style.display='none';"
+            />
+          </div>
+          <div class="project-info">
+            <div class="project-meta-top">
+              <h3 class="project-name">Dr. Manish Clinic</h3>
+              <span class="project-category">HEALTHCARE PRACTICE</span>
+            </div>
+            <p class="project-summary">
+              High-trust medical authority portal built to convert inquiries into appointments.
+            </p>
+            <div class="project-tags">
+              <span class="tag-badge">Practitioner Trust Engine</span>
+              <span class="tag-badge">Patient Privacy</span>
+            </div>
+            <div class="project-actions">
+              <span class="btn-inspect">// LIVE DEPLOYMENT</span>
+              <a href="https://dr-manish-clinic.netlify.app/" target="_blank" rel="noopener noreferrer" class="btn-launch-live">
+                LAUNCH LIVE SITE ↗
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 04: Clinic Web Platform -->
+        <div class="project-card" data-category="clinical">
+          <div class="browser-chrome">
+            <div class="chrome-dots">
+              <span class="chrome-dot dot-red"></span>
+              <span class="chrome-dot dot-yellow"></span>
+              <span class="chrome-dot dot-green"></span>
+            </div>
+            <div class="chrome-url">clinic-web-project.netlify.app</div>
+            <div class="chrome-tag">PRACTICE SYSTEM</div>
+          </div>
+          <div class="project-preview">
+            <img 
+              src="project-clinic.jpg" 
+              alt="Apex Dermea Clinic Platform" 
+              class="project-thumbnail"
+              loading="lazy"
+              onerror="this.style.display='none';"
+            />
+          </div>
+          <div class="project-info">
+            <div class="project-meta-top">
+              <h3 class="project-name">Clinic Web Platform</h3>
+              <span class="project-category">MEDICAL ONBOARDING</span>
+            </div>
+            <p class="project-summary">
+              Frictionless patient onboarding web experience with accessible booking flows.
+            </p>
+            <div class="project-tags">
+              <span class="tag-badge">Digital Triage UI</span>
+              <span class="tag-badge">Responsive Scheduling</span>
+            </div>
+            <div class="project-actions">
+              <span class="btn-inspect">// LIVE DEPLOYMENT</span>
+              <a href="https://clinic-web-project.netlify.app/" target="_blank" rel="noopener noreferrer" class="btn-launch-live">
+                LAUNCH LIVE SITE ↗
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 05: Dark Wisdom -->
+        <div class="project-card" data-category="editorial">
+          <div class="browser-chrome">
+            <div class="chrome-dots">
+              <span class="chrome-dot dot-red"></span>
+              <span class="chrome-dot dot-yellow"></span>
+              <span class="chrome-dot dot-green"></span>
+            </div>
+            <div class="chrome-url">dark-wisdom.netlify.app</div>
+            <div class="chrome-tag">EDITORIAL</div>
+          </div>
+          <div class="project-preview">
+            <img 
+              src="project-darkwisdom.jpg" 
+              alt="Dark Wisdom Dark Mode Editorial Site" 
+              class="project-thumbnail"
+              loading="lazy"
+              onerror="this.style.display='none';"
+            />
+          </div>
+          <div class="project-info">
+            <div class="project-meta-top">
+              <h3 class="project-name">Dark Wisdom</h3>
+              <span class="project-category">EDITORIAL PLATFORM</span>
+            </div>
+            <p class="project-summary">
+              Cinematic dark-mode editorial hub engineered for maximum reader immersion.
+            </p>
+            <div class="project-tags">
+              <span class="tag-badge">High-Contrast Typography</span>
+              <span class="tag-badge">Content Architecture</span>
+            </div>
+            <div class="project-actions">
+              <span class="btn-inspect">// LIVE DEPLOYMENT</span>
+              <a href="https://dark-wisdom.netlify.app/" target="_blank" rel="noopener noreferrer" class="btn-launch-live">
+                LAUNCH LIVE SITE ↗
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 06: Delicate Naiad Studio -->
+        <div class="project-card" data-category="editorial">
+          <div class="browser-chrome">
+            <div class="chrome-dots">
+              <span class="chrome-dot dot-red"></span>
+              <span class="chrome-dot dot-yellow"></span>
+              <span class="chrome-dot dot-green"></span>
+            </div>
+            <div class="chrome-url">delicate-naiad-957816.netlify.app</div>
+            <div class="chrome-tag">LUXURY SHOWCASE</div>
+          </div>
+          <div class="project-preview">
+            <img 
+              src="project-delicate.jpg" 
+              alt="Studio Adikarah Delicate Architecture" 
+              class="project-thumbnail"
+              loading="lazy"
+              onerror="this.style.display='none';"
+            />
+          </div>
+          <div class="project-info">
+            <div class="project-meta-top">
+              <h3 class="project-name">Delicate Naiad</h3>
+              <span class="project-category">EDITORIAL SHOWCASE</span>
+            </div>
+            <p class="project-summary">
+              Minimalist luxury digital showcase with editorial pacing and razor-sharp type.
+            </p>
+            <div class="project-tags">
+              <span class="tag-badge">Bespoke Whitespace</span>
+              <span class="tag-badge">Ultra-Fast Loading</span>
+            </div>
+            <div class="project-actions">
+              <span class="btn-inspect">// LIVE DEPLOYMENT</span>
+              <a href="https://delicate-naiad-957816.netlify.app/" target="_blank" rel="noopener noreferrer" class="btn-launch-live">
+                LAUNCH LIVE SITE ↗
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       03 — ABOUT SECTION (#about)
+       ========================================================================== -->
+  <section class="about-section" id="about">
+    <div class="container">
+      
+      <div class="section-label">// 03 — ARCHITECTURAL PROFILE & PHILOSOPHY</div>
+      <h2 class="section-title">WHERE BUSINESS STRATEGY MEETS CODE.</h2>
+      <p class="editorial-trust-line">
+        Most web designers only know graphics. As an MBA student with deep roots in operations, e-commerce, and high-pressure athletic discipline, I build digital assets designed to convert attention into revenue[cite: 2, 3].
+      </p>
+
+      <div class="about-cards-grid">
+        <div class="about-card">
+          <div class="about-card-watermark">01</div>
+          <div class="about-card-header">
+            <span class="about-card-badge">BUSINESS ACUMEN</span>
+          </div>
+          <h3 class="about-card-title">Commercial & MBA Strategic Edge</h3>
+          <p class="about-card-text">
+            Pursuing my MBA at Lotus Group of Institutions, backed by a B.Sc. scientific foundation[cite: 2, 3]. Every layout, call-to-action, and funnel is structured around business ROI, customer trust, and transactional speed.
+          </p>
+          <ul class="about-card-list">
+            <li><span class="bullet">→</span> MBA Student • Lotus Group of Institutions[cite: 2, 3]</li>
+            <li><span class="bullet">→</span> B.Sc. Foundation • Preeti Rural Institute[cite: 2, 3]</li>
+            <li><span class="bullet">→</span> Conversion Architecture & Funnel Strategy</li>
+          </ul>
+        </div>
+
+        <div class="about-card">
+          <div class="about-card-watermark">02</div>
+          <div class="about-card-header">
+            <span class="about-card-badge">DIGITAL & AI WORKFLOWS</span>
+          </div>
+          <h3 class="about-card-title">AI-Powered Rapid Execution</h3>
+          <p class="about-card-text">
+            Specialized in AI-assisted development, visual content generation, motion graphics, and video editing[cite: 2]. By integrating AI into modern design workflows, I deliver agency-grade web flagships in fractions of conventional timelines.
+          </p>
+          <ul class="about-card-list">
+            <li><span class="bullet">→</span> Custom Web Engineering & Rapid AI Pipelines[cite: 2]</li>
+            <li><span class="bullet">→</span> Short-Form Cinematic Video & Motion Graphics[cite: 2]</li>
+            <li><span class="bullet">→</span> Structured Digital Brand Assets & eBook Design[cite: 2]</li>
+          </ul>
+        </div>
+
+        <div class="about-card">
+          <div class="about-card-watermark">03</div>
+          <div class="about-card-header">
+            <span class="about-card-badge">DISCIPLINE & EXECUTION</span>
+          </div>
+          <h3 class="about-card-title">State-Level Athletic Leadership</h3>
+          <p class="about-card-text">
+            Served as State-Level Kabaddi Team Captain and trained in gymnastics[cite: 2, 3]. High-stakes athletics instilled relentless discipline, split-second decision-making, and absolute ownership under pressure. When we agree on a launch date, it gets shipped.
+          </p>
+          <ul class="about-card-list">
+            <li><span class="bullet">→</span> State-Level Kabaddi Team Captain[cite: 2, 3]</li>
+            <li><span class="bullet">→</span> Zero-Excuses Deadline Commitment</li>
+            <li><span class="bullet">→</span> Gymnastic Precision & High-Pressure Focus[cite: 2, 3]</li>
+          </ul>
+        </div>
+
+        <div class="about-card">
+          <div class="about-card-watermark">04</div>
+          <div class="about-card-header">
+            <span class="about-card-badge">CLIENT EXPERIENCE</span>
+          </div>
+          <h3 class="about-card-title">Operations & Frictionless Service</h3>
+          <p class="about-card-text">
+            Hands-on background in e-commerce fulfillment and corporate customer operations[cite: 3]. You communicate directly with me—the architect and developer—ensuring transparent progress updates, prompt revisions, and zero agency bureaucracy.
+          </p>
+          <ul class="about-card-list">
+            <li><span class="bullet">→</span> Direct 1-on-1 Founder Communication</li>
+            <li><span class="bullet">→</span> E-Commerce & Customer Handling Experience[cite: 3]</li>
+            <li><span class="bullet">→</span> Ongoing Support & Scalable Deployments</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       04 — SOCIAL PROOF & CLIENT REVIEWS SECTION (#reviews)
+       ========================================================================== -->
+  <section class="reviews-section" id="reviews">
+    <div class="container">
+      
+      <!-- Section Header & Aggregate Scoreboard -->
+      <div class="reviews-header-wrap">
+        <div>
+          <div class="section-label">// 04 — VERIFIED SOCIAL PROOF & FEEDBACK</div>
+          <h2 class="section-title">PROVEN TRUST. MEASURABLE RESULTS.</h2>
+          <p class="editorial-trust-line">
+            Real feedback from business owners and founders. Engineered to showcase authentic delivery, business ROI, and zero-compromise execution.
+          </p>
+        </div>
+
+        <!-- Aggregate Score Card -->
+        <div class="aggregate-score-card">
+          <div class="aggregate-top">
+            <span class="aggregate-number" id="aggregateRating">5.0</span>
+            <div class="aggregate-stars" id="aggregateStars">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+          </div>
+          <div class="aggregate-label" id="aggregateSatisfaction">100% 5-STAR CLIENT SATISFACTION</div>
+          <div class="aggregate-meta" id="aggregateCountMeta">Based on 4 commercial deployments & verified reviews</div>
+          <button type="button" class="btn-open-feedback" onclick="openFeedbackModal()">
+            LEAVE CLIENT FEEDBACK +
+          </button>
+        </div>
+      </div>
+
+      <!-- Trust Metrics Bar -->
+      <div class="review-stats-bar">
+        <div class="stat-cell">
+          <span class="stat-value">100%</span>
+          <span class="stat-desc">ON-TIME DELIVERY RECORD</span>
+        </div>
+        <div class="stat-cell">
+          <span class="stat-value">1-on-1</span>
+          <span class="stat-desc">DIRECT FOUNDER EXECUTION</span>
+        </div>
+        <div class="stat-cell">
+          <span class="stat-value">0.0%</span>
+          <span class="stat-desc">AGENCY OVERHEAD & DELAYS</span>
+        </div>
+        <div class="stat-cell">
+          <span class="stat-value">7–14d</span>
+          <span class="stat-desc">AVERAGE SPRINT VELOCITY</span>
+        </div>
+      </div>
+
+      <!-- Testimonial Cards Grid (Populated & Dynamic) -->
+      <div class="reviews-grid" id="reviews-list">
+        
+        <!-- Review 01 -->
+        <div class="review-card" data-rating="5">
+          <div class="review-card-top">
+            <div class="review-stars">★★★★★</div>
+            <span class="verified-badge">✓ VERIFIED CLIENT</span>
+          </div>
+          <div class="review-outcome-pill">OUTCOME: +45% DIRECT TABLE BOOKINGS</div>
+          <p class="review-quote">
+            "Arbaz brought an entirely new standard to our dining presence. The site doesn't just look luxury—guests regularly mention how effortless it is to browse our menu and reserve tables online. He executed exactly to our timeline without a single delay."
+          </p>
+          <div class="review-author-wrap">
+            <div class="author-avatar-initials">NB</div>
+            <div class="author-meta">
+              <h4 class="author-name">Operations Lead</h4>
+              <p class="author-title">Namastay Bareilly • Hospitality & Dining</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 02 -->
+        <div class="review-card" data-rating="5">
+          <div class="review-card-top">
+            <div class="review-stars">★★★★★</div>
+            <span class="verified-badge">✓ VERIFIED CLIENT</span>
+          </div>
+          <div class="review-outcome-pill">OUTCOME: FRICTIONLESS PATIENT INQUIRIES</div>
+          <p class="review-quote">
+            "Healthcare websites usually feel clinical and cluttered. Arbaz designed a platform that instantly establishes medical authority and trust. New patient appointment inquiries doubled within our first month of deployment."
+          </p>
+          <div class="review-author-wrap">
+            <div class="author-avatar-initials">DM</div>
+            <div class="author-meta">
+              <h4 class="author-name">Clinic Director</h4>
+              <p class="author-title">Dr. Manish Clinic • Healthcare Practice</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 03 -->
+        <div class="review-card" data-rating="5">
+          <div class="review-card-top">
+            <div class="review-stars">★★★★★</div>
+            <span class="verified-badge">✓ VERIFIED CLIENT</span>
+          </div>
+          <div class="review-outcome-pill">OUTCOME: 2.4X MOBILE USER ENGAGEMENT</div>
+          <p class="review-quote">
+            "Most freelance designers give you broken templates. Arbaz understood our restaurant flow, streamlined our visual ordering menu, and delivered a clean, mobile-first experience. Clear updates at every stage of the build."
+          </p>
+          <div class="review-author-wrap">
+            <div class="author-avatar-initials">GF</div>
+            <div class="author-meta">
+              <h4 class="author-name">Restaurant Management</h4>
+              <p class="author-title">GoodFood Restaurant • Culinary Brand</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 04 -->
+        <div class="review-card" data-rating="5">
+          <div class="review-card-top">
+            <div class="review-stars">★★★★★</div>
+            <span class="verified-badge">✓ VERIFIED CLIENT</span>
+          </div>
+          <div class="review-outcome-pill">OUTCOME: HIGH-VALUE CLIENT CONVERSION</div>
+          <p class="review-quote">
+            "Arbaz brings a rare dual perspective: sharp technical development combined with genuine MBA commercial strategy[cite: 2, 3]. He doesn't just build pages; he engineers an asset that positions you as a category leader."
+          </p>
+          <div class="review-author-wrap">
+            <div class="author-avatar-initials">AH</div>
+            <div class="author-meta">
+              <h4 class="author-name">Creative Founder</h4>
+              <p class="author-title">Independent Editorial Brand</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       05 — DEAL-CLOSING "LET'S TALK" SECTION (#lets-talk)
+       ========================================================================== -->
+  <section class="contact-section" id="lets-talk">
+    <div class="container">
+      
+      <div class="section-label">// 05 — START A DIRECT COMMISSION</div>
+      <h2 class="section-title">READY TO BUILD SOMETHING EXTRAORDINARY?</h2>
+      <p class="editorial-trust-line">
+        Accepting select website commissions for businesses and individuals ready to establish authority online. Direct founder collaboration with guaranteed delivery.
+      </p>
+
+      <div class="contact-layout">
+        
+        <!-- Left: Deal Standards & Direct Connect -->
+        <div class="contact-direct-card">
+          <div class="corner-cross corner-tl">+</div>
+          <div class="corner-tr corner-cross">+</div>
+          <div class="corner-bl corner-cross">+</div>
+          <div class="corner-br corner-cross">+</div>
+
+          <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-blue); letter-spacing: 0.08em; margin-bottom: 0.75rem;">
+            [ ENGAGEMENT PRINCIPLES ]
+          </div>
+          <h3 style="font-family: var(--font-headline); font-size: 1.4rem; font-weight: 800; margin-bottom: 0.5rem;">
+            Guaranteed Deal Terms
+          </h3>
+          <p style="font-size: 0.9rem; color: var(--text-body); line-height: 1.5;">
+            Every website project is executed under transparent parameters designed for peace of mind.
+          </p>
+
+          <div class="deal-standards-list">
+            <div class="deal-standard-item">
+              <span class="deal-num">01</span>
+              <div class="deal-content">
+                <h4>Fixed Scope & Pricing</h4>
+                <p>No unexpected invoices or hourly overages. Clear milestone-based investment.</p>
+              </div>
+            </div>
+
+            <div class="deal-standard-item">
+              <span class="deal-num">02</span>
+              <div class="deal-content">
+                <h4>Rapid 7–14 Day Delivery</h4>
+                <p>Agile sprint delivery so your business can start acquiring customers immediately.</p>
+              </div>
+            </div>
+
+            <div class="deal-standard-item">
+              <span class="deal-num">03</span>
+              <div class="deal-content">
+                <h4>100% Direct Founder Access</h4>
+                <p>No junior account managers. You speak directly with Arbaz Hasan at every stage.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="direct-links-wrap">
+            <a href="mailto:baazverse@gmail.com" class="direct-action-btn">
+              <span>EMAIL DIRECTLY</span>
+              <span>baazverse@gmail.com ↗</span>
+            </a>
+            <a href="https://wa.me/916395145846" target="_blank" rel="noopener noreferrer" class="direct-action-btn">
+              <span>WHATSAPP / CALL</span>
+              <span>+91 6395145846 ↗</span>
+            </a>
+            <a href="https://linkedin.com/in/arbaz-hasan" target="_blank" rel="noopener noreferrer" class="direct-action-btn">
+              <span>LINKEDIN NETWORK</span>
+              <span>in/arbaz-hasan ↗</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Deal Configurator / Commission Form -->
+        <div class="contact-form-card">
+          <div class="corner-cross corner-tl">+</div>
+          <div class="corner-tr corner-cross">+</div>
+          <div class="corner-bl corner-cross">+</div>
+          <div class="corner-br corner-cross">+</div>
+
+          <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-blue); letter-spacing: 0.08em; margin-bottom: 0.5rem;">
+            [ COMMISSION INQUIRY ]
+          </div>
+          <h3 style="font-family: var(--font-headline); font-size: 1.45rem; font-weight: 800; margin-bottom: 1.5rem;">
+            Tell Me About Your Project
+          </h3>
+
+          <form onsubmit="handleDealSubmit(event)">
+            <div class="form-group-row">
+              <div class="form-field">
+                <label class="field-label" for="deal-name">YOUR NAME *</label>
+                <input type="text" id="deal-name" class="field-input" placeholder="e.g. Rahul Sharma" required />
+              </div>
+              <div class="form-field">
+                <label class="field-label" for="deal-contact">YOUR EMAIL OR PHONE *</label>
+                <input type="text" id="deal-contact" class="field-input" placeholder="e.g. contact@brand.com" required />
+              </div>
+            </div>
+
+            <div class="form-group-row">
+              <div class="form-field">
+                <label class="field-label" for="deal-type">PROJECT TYPE *</label>
+                <select id="deal-type" class="field-select">
+                  <option value="Landing Page">High-Converting Landing Page</option>
+                  <option value="Business Website">Full Business Flagship Website</option>
+                  <option value="Restaurant / Booking Website">Restaurant / Booking Platform</option>
+                  <option value="Healthcare / Clinic Website">Healthcare & Clinic Platform</option>
+                  <option value="Personal Brand Website">Personal Authority / Portfolio Site</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label class="field-label" for="deal-timeline">TIMELINE TARGET</label>
+                <select id="deal-timeline" class="field-select">
+                  <option value="Ready to start immediately">Immediately (Within 7–10 days)</option>
+                  <option value="Next 2-3 weeks">Next 2–3 weeks</option>
+                  <option value="Exploring possibilities">Exploring options & scoping</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label class="field-label" for="deal-notes">PROJECT GOALS & REQUIREMENTS *</label>
+              <textarea id="deal-notes" class="field-textarea" placeholder="Briefly describe what your business does and what you'd like your new website to achieve..." required></textarea>
+            </div>
+
+            <button type="submit" class="form-submit-btn">
+              SUBMIT DEAL INQUIRY →
+            </button>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       FEEDBACK MODAL
+       ========================================================================== -->
+  <div class="modal-overlay" id="feedback-modal">
+    <div class="modal-content">
+      <button type="button" class="modal-close-btn" onclick="closeFeedbackModal()">[ ESC / CLOSE ✕ ]</button>
+      
+      <div class="modal-eyebrow">// CLIENT REPUTATION AUDIT</div>
+      <h3 class="modal-title">Share Your Experience</h3>
+      <p class="modal-body">
+        Your feedback appears on the reviews ledger immediately and is recorded directly into studio records.
+      </p>
+
+      <form onsubmit="handleFeedbackSubmit(event)">
+        <div class="form-group-row">
+          <div class="form-field">
+            <label class="field-label" for="fb-name">YOUR FULL NAME *</label>
+            <input type="text" id="fb-name" class="field-input" placeholder="e.g. Vikram Seth" required />
+          </div>
+          <div class="form-field">
+            <label class="field-label" for="fb-role">BUSINESS / ROLE *</label>
+            <input type="text" id="fb-role" class="field-input" placeholder="e.g. Founder, Luxe Dining" required />
+          </div>
+        </div>
+
+        <div class="form-group-row">
+          <div class="form-field">
+            <label class="field-label" for="fb-rating">RATING *</label>
+            <select id="fb-rating" class="field-select">
+              <option value="5">★★★★★ (5.0 — Outstanding / Exceeded Goals)</option>
+              <option value="4">★★★★☆ (4.0 — Professional & On Schedule)</option>
+              <option value="3">★★★☆☆ (3.0 — Satisfactory)</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label class="field-label" for="fb-outcome">KEY RESULT OR DELIVERABLE</label>
+            <input type="text" id="fb-outcome" class="field-input" placeholder="e.g. 30% faster booking, On-time launch" />
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label class="field-label" for="fb-comment">YOUR DETAILED REVIEW *</label>
+          <textarea id="fb-comment" class="field-textarea" placeholder="How was the communication, turnaround speed, and quality of your web project?" required></textarea>
+        </div>
+
+        <button type="submit" class="form-submit-btn">
+          SUBMIT VERIFIED REVIEW →
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div class="footer-left">
+        <div>ARBAZ HASAN — INDEPENDENT AI WEB DESIGNER & ARCHITECT</div>
+        <div style="margin-top: 0.35rem; color: var(--text-muted);">© 2026 ARBAZ HASAN. ALL RIGHTS RESERVED.</div>
+      </div>
+      <div class="footer-right">
+        <a href="#home">BACK TO TOP ↑</a>
+        <a href="mailto:baazverse@gmail.com">baazverse@gmail.com</a>
+        <a href="https://linkedin.com/in/arbaz-hasan" target="_blank" rel="noopener noreferrer">LINKEDIN</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       INTERACTIVE FUNCTIONALITY SCRIPTS
+       ========================================================================== -->
+  <script>
+    // 1. Mobile Hamburger Toggle Controls
+    function toggleMobileNav() {
+      const toggle = document.getElementById('menuToggle');
+      const drawer = document.getElementById('mobileDrawer');
+      toggle.classList.toggle('active');
+      drawer.classList.toggle('open');
+      document.body.style.overflow = drawer.classList.contains('open') ? 'hidden' : '';
+    }
+
+    function closeMobileNav() {
+      const toggle = document.getElementById('menuToggle');
+      const drawer = document.getElementById('mobileDrawer');
+      toggle.classList.remove('active');
+      drawer.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // 2. Projects Filter Logic
+    function filterProjects(event, category) {
+      const cards = document.querySelectorAll('.project-card');
+      const buttons = document.querySelectorAll('.filter-btn');
+
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+
+      cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // 3. Feedback Modal Controls
+    function openFeedbackModal() {
+      document.getElementById('feedback-modal').classList.add('active');
+    }
+
+    function closeFeedbackModal() {
+      document.getElementById('feedback-modal').classList.remove('active');
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeFeedbackModal();
+    });
+
+    // 4. Dynamic Review Posting with Local Persistence & Top Placement
+    function renderReviewCard(data, prepend = true) {
+      const starString = '★'.repeat(parseInt(data.rating)) + '☆'.repeat(5 - parseInt(data.rating));
+      const initials = data.name.trim().split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'CL';
+
+      const newCard = document.createElement('div');
+      newCard.className = 'review-card';
+      newCard.setAttribute('data-rating', data.rating);
+      newCard.style.border = '1px solid var(--accent-blue)';
+      newCard.innerHTML = `
+        <div class="review-card-top">
+          <div class="review-stars">${starString}</div>
+          <span class="verified-badge">✓ VERIFIED CLIENT</span>
+        </div>
+        <div class="review-outcome-pill">OUTCOME: ${data.outcome.toUpperCase()}</div>
+        <p class="review-quote">"${data.comment}"</p>
+        <div class="review-author-wrap">
+          <div class="author-avatar-initials">${initials}</div>
+          <div class="author-meta">
+            <h4 class="author-name">${data.name}</h4>
+            <p class="author-title">${data.role}</p>
+          </div>
+        </div>
+      `;
+
+      const list = document.getElementById('reviews-list');
+      if (prepend) {
+        list.insertBefore(newCard, list.firstChild);
+      } else {
+        list.appendChild(newCard);
+      }
+    }
+
+    function recalculateReviewStats() {
+      const allCards = document.querySelectorAll('.review-card');
+      let totalRating = 0;
+      let count = allCards.length;
+
+      allCards.forEach(card => {
+        const r = parseFloat(card.getAttribute('data-rating')) || 5;
+        totalRating += r;
+      });
+
+      const avg = (totalRating / count).toFixed(1);
+      const aggregateEl = document.getElementById('aggregateRating');
+      const metaEl = document.getElementById('aggregateCountMeta');
+      if (aggregateEl) aggregateEl.innerText = avg;
+      if (metaEl) metaEl.innerText = `Based on ${count} verified client reviews & deployments`;
+    }
+
+    function loadSavedReviews() {
+      try {
+        const saved = JSON.parse(localStorage.getItem('studio_reviews') || '[]');
+        // Prepend saved reviews in reverse order so latest is at the very top
+        saved.reverse().forEach(rev => {
+          renderReviewCard(rev, true);
+        });
+        recalculateReviewStats();
+      } catch (err) {
+        console.error("Could not load reviews", err);
+      }
+    }
+
+    function handleFeedbackSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('fb-name').value.trim();
+      const role = document.getElementById('fb-role').value.trim();
+      const rating = document.getElementById('fb-rating').value;
+      const outcome = document.getElementById('fb-outcome').value.trim() || 'High Impact Launch';
+      const comment = document.getElementById('fb-comment').value.trim();
+
+      const reviewData = { name, role, rating, outcome, comment, timestamp: Date.now() };
+
+      // Save to localStorage
+      try {
+        const existing = JSON.parse(localStorage.getItem('studio_reviews') || '[]');
+        existing.push(reviewData);
+        localStorage.setItem('studio_reviews', JSON.stringify(existing));
+      } catch (err) {
+        console.error("Could not save to localStorage", err);
+      }
+
+      // Prepend to top of review section immediately
+      renderReviewCard(reviewData, true);
+      recalculateReviewStats();
+
+      closeFeedbackModal();
+      e.target.reset();
+
+      // Smooth scroll back to reviews section so the user sees their feedback at the top
+      document.getElementById('reviews').scrollIntoView({ behavior: 'smooth' });
+
+      // Optional Mailto trigger in background so you get alerted
+      const subject = encodeURIComponent(`New Client Review from ${name}`);
+      const body = encodeURIComponent(
+        `Client Feedback:\n• Name: ${name}\n• Role: ${role}\n• Rating: ${rating}/5\n• Outcome: ${outcome}\n• Review: ${comment}`
+      );
+      window.open(`mailto:baazverse@gmail.com?subject=${subject}&body=${body}`, '_blank');
+    }
+
+    // 5. Commission Deal Form Handler
+    function handleDealSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('deal-name').value;
+      const contact = document.getElementById('deal-contact').value;
+      const type = document.getElementById('deal-type').value;
+      const timeline = document.getElementById('deal-timeline').value;
+      const notes = document.getElementById('deal-notes').value;
+
+      const subject = encodeURIComponent(`New Client Commission: ${type} - ${name}`);
+      const body = encodeURIComponent(
+        `Hi Arbaz,\n\n` +
+        `I would like to commission a website project with you:\n\n` +
+        `• Client Name: ${name}\n` +
+        `• Contact Info: ${contact}\n` +
+        `• Project Type: ${type}\n` +
+        `• Timeline: ${timeline}\n\n` +
+        `• Project Details:\n${notes}\n\n` +
+        `Looking forward to discussing next steps.`
+      );
+
+      window.location.href = `mailto:baazverse@gmail.com?subject=${subject}&body=${body}`;
+    }
+
+    // 6. Active Navigation Link on Scroll
+    window.addEventListener('scroll', () => {
+      const sections = document.querySelectorAll('section');
+      const navLinks = document.querySelectorAll('.nav-item');
+      let currentSection = '';
+
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 120;
+        if (pageYOffset >= sectionTop) {
+          currentSection = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.querySelector('a').getAttribute('href') === `#${currentSection}`) {
+          link.classList.add('active');
+        }
+      });
+    });
+
+    // Initialize saved reviews on load
+    document.addEventListener('DOMContentLoaded', loadSavedReviews);
+  </script>
+</body>
+</html>
